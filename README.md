@@ -226,4 +226,4 @@ Once set up, the following notifications will be sent to Discord:
 
 ---
 
-Now your team can stay updated in real-time on **commit**, **merge**, and **checkout** events, all via **Discord**! Let me know if you need any further adjustments!
+Now your team can stay updated in real-time on **commit**, **merge**, and **checkout** events, all via **Discord**!
