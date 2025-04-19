@@ -169,13 +169,19 @@ git config core.hooksPath githooks
 
 ---
 
-## Customizing the Webhook URL
+## How to Create a Discord Webhook
 
-In each script, replace the placeholder `YOUR_WEBHOOK_URL_HERE` with the actual Discord webhook URL for your channel. You can create a webhook URL by following these steps:
+To send notifications to a Discord channel, you need a **Discord webhook URL**. Follow these steps to create one:
 
-1. Go to your Discord server.
-2. Click on the channel settings (gear icon) and select "Integrations."
-3. Under "Webhooks," click "Create Webhook" and copy the webhook URL.
+1. Open Discord and navigate to your server.
+2. Choose the channel where you want the notifications to appear.
+3. Click on the **channel settings** (gear icon next to the channel name).
+4. In the settings menu, click on **Integrations**.
+5. Under the **Webhooks** section, click **Create Webhook**.
+6. Give the webhook a name and select the channel where you want the messages to appear.
+7. Copy the webhook URL.
+
+Once you have the webhook URL, replace `YOUR_WEBHOOK_URL_HERE` in the `post-merge`, `post-commit`, and `post-checkout` scripts with the copied URL.
 
 ---
 
@@ -220,4 +226,4 @@ Once set up, the following notifications will be sent to Discord:
 
 ---
 
-Feel free to tweak or extend this README as per your needs!
+Now your team can stay updated in real-time on **commit**, **merge**, and **checkout** events, all via **Discord**! Let me know if you need any further adjustments!
