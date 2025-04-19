@@ -59,7 +59,7 @@ username=$(git config user.name)
 branch_name=$(git rev-parse --abbrev-ref HEAD)
 
 # Get timestamp
-timestamp=$(date "+%Y-%m-%d %H:%M:%S")
+timestamp=$(date "+%d-%m-%Y %H:%M:%S")
 
 # Your Discord webhook URL
 webhook_url="https://discord.com/api/webhooks/YOUR_WEBHOOK_URL_HERE"
@@ -92,7 +92,7 @@ username=$(git config user.name)
 branch_name=$(git rev-parse --abbrev-ref HEAD)
 
 # Get timestamp
-timestamp=$(date "+%Y-%m-%d %H:%M:%S")
+timestamp=$(date "+%d-%m-%Y %H:%M:%S")
 
 # Your Discord webhook URL
 webhook_url="https://discord.com/api/webhooks/YOUR_WEBHOOK_URL_HERE"
@@ -125,7 +125,7 @@ username=$(git config user.name)
 branch_name=$(git rev-parse --abbrev-ref HEAD)
 
 # Get timestamp
-timestamp=$(date "+%Y-%m-%d %H:%M:%S")
+timestamp=$(date "+%d-%m-%Y %H:%M:%S")
 
 # Your Discord webhook URL
 webhook_url="https://discord.com/api/webhooks/YOUR_WEBHOOK_URL_HERE"
@@ -199,17 +199,17 @@ Once set up, the following notifications will be sent to Discord:
 
 **`post-commit`**:
 ```
-💬 Alice committed to the `master` branch at 2025-04-19 18:30:45.
+💬 Alice committed to the `master` branch at 19-04-2025 18:30:45.
 ```
 
 **`post-merge`**:
 ```
-🛠️ Bob just pulled and merged into `feature-xyz` branch at 2025-04-19 18:32:10.
+🛠️ Bob just pulled and merged into `feature-xyz` branch at 19-04-2025 18:32:10.
 ```
 
 **`post-checkout`**:
 ```
-🔄 Charlie checked out the `develop` branch at 2025-04-19 18:35:20.
+🔄 Charlie checked out the `develop` branch at 19-04-2025 18:35:20.
 ```
 
 ---
