@@ -34,122 +34,15 @@ Each of these hooks sends a notification to a Discord channel, including the use
 Clone the repository to your local machine:
 
 ```bash
-git clone https://your-repository-url.git
-cd your-repository-name
+git clone https://github.com/Lennyy-y/simple-discord-git-hook.git
+cd simple-discord-git-hook
 ```
 
-### 2. Create the `githooks` directory
+### 2. Place the installation script and `githooks` directory at the root of your repository
 
-In the root of your repository, create a `githooks` directory to store the custom Git hooks:
+In the root of your repository, move the installation script copy the `githooks` directory to store the custom Git hooks:
 
-```bash
-mkdir githooks
-```
-
-### 3. Add the hook scripts
-
-Create the following hook scripts inside the `githooks` directory:
-
-#### `post-merge`:
-```bash
-#!/bin/bash
-
-# Get current Git user name and branch
-username=$(git config user.name)
-branch_name=$(git rev-parse --abbrev-ref HEAD)
-
-# Get timestamp
-timestamp=$(date "+%d-%m-%Y %H:%M:%S")
-
-# Your Discord webhook URL
-webhook_url="https://discord.com/api/webhooks/YOUR_WEBHOOK_URL_HERE"
-
-# Format the message with timestamp
-message="🛠️ $username just pulled and merged into \`$branch_name\` branch at $timestamp."
-
-# Send the webhook depending on OS
-if [[ "$OS" == "Windows_NT" ]]; then
-  # Windows (Git Bash)
-  curl.exe -H "Content-Type: application/json" ^
-           -X POST ^
-           -d "{\"content\": \"$message\"}" ^
-           "$webhook_url"
-else
-  # macOS / Linux
-  curl -H "Content-Type: application/json" \
-       -X POST \
-       -d "{\"content\": \"$message\"}" \
-       "$webhook_url"
-fi
-```
-
-#### `post-commit`:
-```bash
-#!/bin/bash
-
-# Get current Git user name and branch
-username=$(git config user.name)
-branch_name=$(git rev-parse --abbrev-ref HEAD)
-
-# Get timestamp
-timestamp=$(date "+%d-%m-%Y %H:%M:%S")
-
-# Your Discord webhook URL
-webhook_url="https://discord.com/api/webhooks/YOUR_WEBHOOK_URL_HERE"
-
-# Format the message with timestamp
-message="💬 $username committed to the \`$branch_name\` branch at $timestamp."
-
-# Send the webhook depending on OS
-if [[ "$OS" == "Windows_NT" ]]; then
-  # Windows (Git Bash)
-  curl.exe -H "Content-Type: application/json" ^
-           -X POST ^
-           -d "{\"content\": \"$message\"}" ^
-           "$webhook_url"
-else
-  # macOS / Linux
-  curl -H "Content-Type: application/json" \
-       -X POST \
-       -d "{\"content\": \"$message\"}" \
-       "$webhook_url"
-fi
-```
-
-#### `post-checkout`:
-```bash
-#!/bin/bash
-
-# Get current Git user name and branch
-username=$(git config user.name)
-branch_name=$(git rev-parse --abbrev-ref HEAD)
-
-# Get timestamp
-timestamp=$(date "+%d-%m-%Y %H:%M:%S")
-
-# Your Discord webhook URL
-webhook_url="https://discord.com/api/webhooks/YOUR_WEBHOOK_URL_HERE"
-
-# Format the message with timestamp
-message="🔄 $username checked out the \`$branch_name\` branch at $timestamp."
-
-# Send the webhook depending on OS
-if [[ "$OS" == "Windows_NT" ]]; then
-  # Windows (Git Bash)
-  curl.exe -H "Content-Type: application/json" ^
-           -X POST ^
-           -d "{\"content\": \"$message\"}" ^
-           "$webhook_url"
-else
-  # macOS / Linux
-  curl -H "Content-Type: application/json" \
-       -X POST \
-       -d "{\"content\": \"$message\"}" \
-       "$webhook_url"
-fi
-```
-
-### 4. Make the scripts executable
+### 3. Make the scripts executable
 
 Ensure the scripts are executable:
 
@@ -159,7 +52,7 @@ chmod +x githooks/post-commit
 chmod +x githooks/post-checkout
 ```
 
-### 5. Configure Git to use the `githooks` directory
+### 4. Configure Git to use the `githooks` directory
 
 Set the custom hooks directory for Git:
 
