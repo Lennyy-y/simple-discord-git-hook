@@ -1,0 +1,34 @@
+#!/bin/bash
+
+# Get current Git user name and branch
+username=$(git config user.name)
+branch_name=$(git rev-parse --abbrev-ref HEAD)
+
+# Only notify if on master (optional)
+if [ "$branch_name" != "master" ]; then
+  exit 0
+fi
+
+# Get timestamp
+timestamp=$(date "+%d-%m-%Y %H:%M:%S")
+
+# Your Discord webhook URL
+webhook_url="https://discord.com/api/webhooks/1363069810208014468/fN-wjgfg0lvJJQMsEY3izL_gVze2mtEPv-rG30rcvasvzrTe9LiMVNVbFXTUry9ygYgw"
+
+# Format the message with timestamp
+message="🛠️ $username just pulled and merged into \`$branch_name\` branch at $timestamp."
+
+# Send the webhook depending on OS
+if [[ "$OS" == "Windows_NT" ]]; then
+  # Windows (Git Bash)
+  curl.exe -H "Content-Type: application/json" ^
+           -X POST ^
+           -d "{\"content\": \"$message\"}" ^
+           "$webhook_url"
+else
+  # macOS / Linux
+  curl -H "Content-Type: application/json" \
+       -X POST \
+       -d "{\"content\": \"$message\"}" \
+       "$webhook_url"
+fi
