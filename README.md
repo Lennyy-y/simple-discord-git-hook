@@ -1,8 +1,3 @@
-Here is your updated `README.md` with all the requested changes applied:
-
----
-
-```markdown
 # Git Hooks with Discord Notifications
 
 This repository includes custom Git hooks for notifying team members via **Discord** whenever certain Git events occur. It includes hooks for:
@@ -136,4 +131,3 @@ From now on, all Git operations in IntelliJ will go through your system Git, ena
 ---
 
 Now your team can stay updated in real-time on **commit**, **merge**, and **checkout** events, all via **Discord**!
-```
