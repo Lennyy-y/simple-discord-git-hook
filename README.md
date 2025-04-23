@@ -1,3 +1,8 @@
+Here is your updated `README.md` with all the requested changes applied:
+
+---
+
+```markdown
 # Git Hooks with Discord Notifications
 
 This repository includes custom Git hooks for notifying team members via **Discord** whenever certain Git events occur. It includes hooks for:
@@ -14,7 +19,7 @@ Each of these hooks sends a notification to a Discord channel, including the use
 
 - **Cross-platform** support for both **macOS/Linux** and **Windows** (using Git Bash)
 - **Real-time notifications** on **commit**, **merge**, and **checkout** events
-- Includes **timestamps** for each event
+- Includes **timestamps** in `dd-mm-yyyy HH:MM:SS` format
 - Easy to configure with minimal setup
 
 ---
@@ -22,7 +27,7 @@ Each of these hooks sends a notification to a Discord channel, including the use
 ## Prerequisites
 
 - **Git** installed on your machine
-- **Git Bash** installed on Windows (recommended for full functionality)
+- **Git Bash** installed on Windows (required for proper script execution)
 - A **Discord webhook URL** for your channel
 
 ---
@@ -40,11 +45,11 @@ cd simple-discord-git-hook
 
 ### 2. Place the installation script and `githooks` directory at the root of your repository
 
-In the root of your repository, move the installation script copy the `githooks` directory to store the custom Git hooks:
+In the root of your repository, copy the `githooks` directory and the install script (if needed).
 
 ### 3. Make the scripts executable
 
-Ensure the scripts are executable:
+Ensure the scripts are executable (on macOS/Linux or Git Bash):
 
 ```bash
 chmod +x githooks/post-merge
@@ -90,33 +95,45 @@ Once set up, the following notifications will be sent to Discord:
 
 ## Example Notifications
 
-**`post-commit`**:
 ```
-💬 Alice committed to the `master` branch at 19-04-2025 18:30:45.
-```
-
-**`post-merge`**:
-```
-🛠️ Bob just pulled and merged into `feature-xyz` branch at 19-04-2025 18:32:10.
+[19-04-2025 18:30:45] Alice committed to `master`
+[19-04-2025 18:32:10] Bob just merged into `feature-xyz`
+[19-04-2025 18:35:20] Charlie checked out to `develop`
 ```
 
-**`post-checkout`**:
-```
-🔄 Charlie checked out the `develop` branch at 19-04-2025 18:35:20.
-```
+---
+
+## Windows: Set IntelliJ to Use Git Bash
+
+If you're on Windows, Git hooks will **only work** if Git operations run through **Git Bash**, not the built-in JGit engine. Here’s how to set it up in IntelliJ:
+
+1. Open **IntelliJ IDEA** → `File` → `Settings` (or `Ctrl+Alt+S`)
+2. Go to: `Version Control` → `Git`
+3. Set **Path to Git executable** to:
+   ```
+   C:\Program Files\Git\bin\git.exe
+   ```
+4. Click **Test** to confirm it's working
+5. Make sure **“Use credential helper”** is checked (optional)
+6. Click **OK**
+
+From now on, all Git operations in IntelliJ will go through your system Git, enabling hooks like `post-merge`, `post-commit`, and `post-checkout`.
 
 ---
 
 ## Troubleshooting
 
 1. **Webhook not sending?**
-   - Check if the `curl` command works from your terminal by running it directly.
-   - Ensure that the webhook URL is correctly set.
+   - Test your `curl` command manually with a sample message.
+   - Ensure your `post-*` script has the correct webhook URL.
+   - Make sure you're executing Git commands that trigger the hooks (`merge`, `commit`, `checkout`).
 
-2. **Windows Users:**
-   - Ensure that your team is using **Git Bash** for the hooks to work correctly.
-   - If needed, install Git Bash from [Git for Windows](https://git-scm.com/).
+2. **Hooks not triggering on Windows?**
+   - Make sure you're using **Git Bash**, not PowerShell or Command Prompt.
+   - Ensure IntelliJ is configured to use the correct Git executable (`git.exe` from Git for Windows).
+   - Check script permissions and ensure no file extensions like `.sh` or `.txt`.
 
 ---
 
 Now your team can stay updated in real-time on **commit**, **merge**, and **checkout** events, all via **Discord**!
+```
