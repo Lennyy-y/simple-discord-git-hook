@@ -1,34 +1,22 @@
-#!/bin/bash
+#!/bin/sh
 
-# Get current Git user name and branch
-username=$(git config user.name)
-branch_name=$(git rev-parse --abbrev-ref HEAD)
+WEBHOOK_URL="https://discord.com/api/webhooks/YOUR_WEBHOOK_URL_HERE"
+USERNAME=$(git config user.name)
+BRANCH=$(git rev-parse --abbrev-ref HEAD)
+TIME=$(date '+%d-%m-%Y %H:%M:%S')
 
-# Only notify if on master (optional)
-if [ "$branch_name" != "master" ]; then
-  exit 0
-fi
+MESSAGE="[$TIME] $USERNAME just merged into \`$BRANCH\`"
 
-# Get timestamp
-timestamp=$(date "+%d-%m-%Y %H:%M:%S")
+# Detect OS platform properly
+OS="$(uname)"
 
-# Your Discord webhook URL
-webhook_url="https://discord.com/api/webhooks/1363069810208014468/fN-wjgfg0lvJJQMsEY3izL_gVze2mtEPv-rG30rcvasvzrTe9LiMVNVbFXTUry9ygYgw"
+# Escape message for JSON
+JSON_PAYLOAD="{\"content\": \"$MESSAGE\"}"
 
-# Format the message with timestamp
-message="🛠️ $username just pulled and merged into \`$branch_name\` branch at $timestamp."
-
-# Send the webhook depending on OS
-if [[ "$OS" == "Windows_NT" ]]; then
-  # Windows (Git Bash)
-  curl.exe -H "Content-Type: application/json" ^
-           -X POST ^
-           -d "{\"content\": \"$message\"}" ^
-           "$webhook_url"
+if echo "$OS" | grep -iq "mingw"; then
+    # Git Bash on Windows (MINGW64_NT-10.0)
+    curl -H "Content-Type: application/json" -X POST -d "$JSON_PAYLOAD" "$WEBHOOK_URL"
 else
-  # macOS / Linux
-  curl -H "Content-Type: application/json" \
-       -X POST \
-       -d "{\"content\": \"$message\"}" \
-       "$webhook_url"
+    # Unix/MacOS/Linux
+    curl -H "Content-Type: application/json" -X POST -d "$JSON_PAYLOAD" "$WEBHOOK_URL"
 fi

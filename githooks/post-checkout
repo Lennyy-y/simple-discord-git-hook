@@ -1,29 +1,17 @@
-#!/bin/bash
+#!/bin/sh
 
-# Get current Git user name and branch
-username=$(git config user.name)
-branch_name=$(git rev-parse --abbrev-ref HEAD)
+WEBHOOK_URL="https://discord.com/api/webhooks/YOUR_WEBHOOK_URL_HERE"
+USERNAME=$(git config user.name)
+NEW_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+TIME=$(date '+%d-%m-%Y %H:%M:%S')
 
-# Get timestamp
-timestamp=$(date "+%d-%m-%Y %H:%M:%S")
+MESSAGE="[$TIME] $USERNAME checked out to \`$NEW_BRANCH\`"
 
-# Your Discord webhook URL
-webhook_url="https://discord.com/api/webhooks/YOUR_WEBHOOK_URL_HERE"
+OS="$(uname)"
+JSON_PAYLOAD="{\"content\": \"$MESSAGE\"}"
 
-# Format the message with timestamp
-message="🔄 $username checked out the \`$branch_name\` branch at $timestamp."
-
-# Send the webhook depending on OS
-if [[ "$OS" == "Windows_NT" ]]; then
-  # Windows (Git Bash)
-  curl.exe -H "Content-Type: application/json" ^
-           -X POST ^
-           -d "{\"content\": \"$message\"}" ^
-           "$webhook_url"
+if echo "$OS" | grep -iq "mingw"; then
+    curl -H "Content-Type: application/json" -X POST -d "$JSON_PAYLOAD" "$WEBHOOK_URL"
 else
-  # macOS / Linux
-  curl -H "Content-Type: application/json" \
-       -X POST \
-       -d "{\"content\": \"$message\"}" \
-       "$webhook_url"
+    curl -H "Content-Type: application/json" -X POST -d "$JSON_PAYLOAD" "$WEBHOOK_URL"
 fi
